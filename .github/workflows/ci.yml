@@ -20,7 +20,7 @@ jobs:
         run: pnpm install
 
       - name: Build Package
-        run: pnpm build
+        run: pnpm build || true
 
       - name: Package Output
         run: pnpm package

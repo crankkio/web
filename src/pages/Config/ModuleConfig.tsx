@@ -10,6 +10,7 @@ import { Serial } from "@components/PageComponents/ModuleConfig/Serial.js";
 import { StoreForward } from "@components/PageComponents/ModuleConfig/StoreForward.js";
 import { Telemetry } from "@components/PageComponents/ModuleConfig/Telemetry.js";
 import { Paxcounter } from "@components/PageComponents/ModuleConfig/Paxcounter.js";
+import { Wallet } from "@components/PageComponents/ModuleConfig/Wallet.js";
 import {
   Tabs,
   TabsContent,
@@ -66,6 +67,10 @@ export const ModuleConfig = (): JSX.Element => {
     {
       label: "Paxcounter",
       element: Paxcounter,
+    },
+    {
+      label: "Wallet",
+      element: Wallet,
     },
   ];
 

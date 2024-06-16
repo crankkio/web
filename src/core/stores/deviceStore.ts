@@ -252,6 +252,11 @@ export const useDeviceStore = create<DeviceState>((set, get) => ({
                         config.payloadVariant.value;
                       break;
                     }
+                    case "wallet": {
+                      device.moduleConfig.wallet =
+                        config.payloadVariant.value;
+                      break;
+                    }
                   }
                 }
               }),
