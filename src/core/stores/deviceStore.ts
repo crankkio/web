@@ -24,8 +24,7 @@ export type DialogVariant =
   | "QR"
   | "shutdown"
   | "reboot"
-  | "deviceName"
-  | "nodeRemoval";
+  | "deviceName";
 
 export interface Device {
   id: number;
@@ -55,7 +54,6 @@ export interface Device {
     shutdown: boolean;
     reboot: boolean;
     deviceName: boolean;
-    nodeRemoval: boolean;
   };
 
   setStatus: (status: Types.DeviceStatusEnum) => void;
@@ -76,7 +74,6 @@ export interface Device {
   addConnection: (connection: Types.ConnectionType) => void;
   addMessage: (message: MessageWithState) => void;
   addMetadata: (from: number, metadata: Protobuf.Mesh.DeviceMetadata) => void;
-  removeNode: (nodeNum: number) => void;
   setMessageState: (
     type: "direct" | "broadcast",
     channelIndex: Types.ChannelNumber,
@@ -133,7 +130,6 @@ export const useDeviceStore = create<DeviceState>((set, get) => ({
             shutdown: false,
             reboot: false,
             deviceName: false,
-            nodeRemoval: false,
           },
           pendingSettingsChanges: false,
           messageDraft: "",
@@ -253,8 +249,13 @@ export const useDeviceStore = create<DeviceState>((set, get) => ({
                       break;
                     }
                     case "wallet": {
-                      device.moduleConfig.wallet =
-                        config.payloadVariant.value;
+                      console.log("Got here !!!");
+                      device.moduleConfig.wallet = config.payloadVariant.value;
+                      break;
+                    }
+                    case "payment": {
+                      console.log("Got here !!!");
+                      device.moduleConfig.payment = config.payloadVariant.value;
                       break;
                     }
                   }
@@ -285,6 +286,7 @@ export const useDeviceStore = create<DeviceState>((set, get) => ({
           ) => {
             set(
               produce<DeviceState>((draft) => {
+                console.log("Setting working module config");
                 const device = draft.devices.get(id);
                 if (!device) {
                   return;
@@ -502,17 +504,6 @@ export const useDeviceStore = create<DeviceState>((set, get) => ({
                 device.metadata.set(from, metadata);
               }),
             );
-          },
-          removeNode: (nodeNum) => {
-            set(
-              produce<DeviceState>((draft) => {
-                const device = draft.devices.get(id);
-                if (!device) {
-                  return;
-                }
-                device.nodes.delete(nodeNum);
-              })
-            )
           },
           setMessageState: (
             type: "direct" | "broadcast",
