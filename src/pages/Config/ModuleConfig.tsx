@@ -5,11 +5,12 @@ import { Audio } from "@components/PageComponents/ModuleConfig/Audio.js";
 import { CannedMessage } from "@components/PageComponents/ModuleConfig/CannedMessage.js";
 import { ExternalNotification } from "@components/PageComponents/ModuleConfig/ExternalNotification.js";
 import { MQTT } from "@components/PageComponents/ModuleConfig/MQTT.js";
+import { Paxcounter } from "@components/PageComponents/ModuleConfig/Paxcounter.js";
+import { Payment } from "@components/PageComponents/ModuleConfig/Payment.js";
 import { RangeTest } from "@components/PageComponents/ModuleConfig/RangeTest.js";
 import { Serial } from "@components/PageComponents/ModuleConfig/Serial.js";
 import { StoreForward } from "@components/PageComponents/ModuleConfig/StoreForward.js";
 import { Telemetry } from "@components/PageComponents/ModuleConfig/Telemetry.js";
-import { Paxcounter } from "@components/PageComponents/ModuleConfig/Paxcounter.js";
 import { Wallet } from "@components/PageComponents/ModuleConfig/Wallet.js";
 import {
   Tabs,
@@ -71,6 +72,10 @@ export const ModuleConfig = (): JSX.Element => {
     {
       label: "Wallet",
       element: Wallet,
+    },
+    {
+      label: "Payment",
+      element: Payment,
     },
   ];
 

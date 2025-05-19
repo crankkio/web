@@ -1,16 +1,16 @@
-import type { WalletValidation } from "@app/validation/moduleConfig/wallet.ts";
+import type { PaymentValidation } from "@app/validation/moduleConfig/payment.ts";
 import { DynamicForm } from "@components/Form/DynamicForm.js";
 import { useDevice } from "@core/stores/deviceStore.js";
 import { Protobuf } from "@meshtastic/js";
 
-export const Wallet = (): JSX.Element => {
+export const Payment = (): JSX.Element => {
   const { moduleConfig, setWorkingModuleConfig } = useDevice();
 
-  const onSubmit = (data: WalletValidation) => {
+  const onSubmit = (data: PaymentValidation) => {
     setWorkingModuleConfig(
       new Protobuf.ModuleConfig.ModuleConfig({
         payloadVariant: {
-          case: "wallet",
+          case: "payment",
           value: data,
         },
       }),
@@ -18,25 +18,25 @@ export const Wallet = (): JSX.Element => {
   };
 
   return (
-    <DynamicForm<WalletValidation>
+    <DynamicForm<PaymentValidation>
       onSubmit={onSubmit}
-      defaultValues={moduleConfig.wallet}
+      defaultValues={moduleConfig.payment}
       fieldGroups={[
         {
-          label: "Wallet Settings",
-          description: "Settings for the Wallet module",
+          label: "Payment settings",
+          description: "Allow payments to be sent and received",
           fields: [
             {
               type: "toggle",
               name: "enabled",
-              label: "Module Enabled",
-              description: "Enable Wallet",
+              label: "Paymens active",
+              description: "Enable payments to be sent and received",
             },
             {
               type: "text",
-              name: "publicKey",
-              label: "Public Key",
-              description: "Public Key",
+              name: "wallet",
+              label: "Wallet",
+              description: "Wallet address to send payment to",
               disabledBy: [
                 {
                   fieldName: "enabled",
@@ -45,9 +45,9 @@ export const Wallet = (): JSX.Element => {
             },
             {
               type: "text",
-              name: "privateKey",
-              label: "Private Key",
-              description: "Private Key",
+              name: "amount",
+              label: "Amount",
+              description: "Amount to send",
               disabledBy: [
                 {
                   fieldName: "enabled",
